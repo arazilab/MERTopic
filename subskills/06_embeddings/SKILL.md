@@ -21,6 +21,21 @@ Create:
 - Store embedding model and dimensions.
 - Save preview files and stats.
 - Use batching and `tqdm`.
+- Require API credentials and user approval before running embedding calls.
+- Check that the input text unit matches the planned topic-modeling level.
+- Write enough metadata to reproduce the embedding run: model, dimensions, encoding format, batch size, input path, row count, timestamp, and script version when available.
+
+## Stop Gate
+
+Before embedding, report:
+
+- input file and row count,
+- text field to embed,
+- model and dimensions,
+- estimated number of API calls or batches,
+- output files.
+
+Proceed only after confirmation when the user requested stage-by-stage control.
 
 ## Reuse
 

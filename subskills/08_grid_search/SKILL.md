@@ -19,6 +19,16 @@ Treat parameter selection as a reproducible model-selection problem.
 - Save per-run metrics and artifacts.
 - Rank runs using multiple metrics, not coherence alone.
 - Preserve the broad search and focused search in separate output folders.
+- Confirm the search budget before running, especially on large corpora.
+- Save failed runs with error messages instead of dropping them from the results.
+- Stop after the broad search to summarize patterns and propose any focused search.
+
+## Do Not Proceed When
+
+- the user only asked for scaffolding or a first-pass model,
+- embeddings or prior topic-model outputs have not been inspected,
+- the proposed parameter grid is not written down,
+- the likely runtime is unknown for a large corpus.
 
 ## Recommended Metrics
 

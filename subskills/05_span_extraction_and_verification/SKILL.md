@@ -18,6 +18,17 @@ Extract verbatim spans or bullets, then verify that each one appears in the sour
 - Retry failed spans in the same conversation thread when possible.
 - Expose retry count in config.
 - Save unresolved invalid spans.
+- Require a confirmed extraction objective before running if the workflow is construct-specific.
+- Require API credentials and user approval before LLM extraction or summarization.
+- Run a small sample first when the extraction objective is new or ambiguous.
+- Stop for prompt review when sample spans are paraphrased, too broad, too narrow, or not exact matches.
+
+## Do Not Proceed When
+
+- the source text field is uncertain,
+- the prompt permits paraphrase while downstream verification expects verbatim spans,
+- the retry prompt is missing for exact-match workflows,
+- previous relevancy or filtering outputs have not been inspected.
 
 ## Default Behavior
 

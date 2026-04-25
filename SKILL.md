@@ -34,6 +34,20 @@ Keep the humor restrained. Do not mock the user, the data, the research particip
 
 ## How To Use This Package
 
+### Non-Negotiable Operating Contract
+
+Follow these rules before any stage-specific work:
+
+- Inspect the user's data before proposing a pipeline.
+- Ask the missing setup questions before creating scripts or running analysis.
+- Do not run LDA, NMF, k-means-only clustering, or any non-BERTopic substitute unless the user explicitly asks for a different method.
+- Do not run API-costing stages until the user confirms the config and provides credentials through a local `.env` file or existing environment variable.
+- Do not ask the user to paste API keys into chat. Create or update `.env`, leave secrets blank when unavailable, and tell the user exactly which local variable to fill.
+- Stop at major decision points when the user asked for a guided workflow. Tell the user what was created, what command to run, what output to send back, and what decision comes next.
+- If the user asks for a fully automated run, still stop before the first external API call unless credentials and permission are already clearly available.
+
+Major decision points are: post-discovery scope confirmation, after scaffolding, before LLM relevancy coding, before extraction/summarization, before embeddings, before topic modeling, before grid search, and before promoting a final model.
+
 ### 1. Start with discovery
 
 Open:
@@ -80,7 +94,7 @@ These are meant to be adapted, not copied verbatim without thought.
 
 ### Ask these first-order questions
 
-After inspecting the data, ask only the missing questions:
+After inspecting the data, ask only the missing questions. Do not continue past discovery until the answers are clear enough to write config:
 
 - What is the dataset and how was it collected?
 - What is the unit of analysis?
@@ -92,6 +106,7 @@ After inspecting the data, ask only the missing questions:
 - Should the final topics be modeled at bullet level, post level, or both?
 - Does the user want a grid search, or only a first-pass model?
 - Do they need outputs for downstream browser or co-occurrence tools?
+- Should the agent run later stages directly, or create scripts/config and wait for the user to run them?
 
 ### Stage ordering
 
@@ -111,6 +126,8 @@ Use this order unless there is a clear reason to skip steps:
 
 - If the user does not want keyword filtering, skip it.
 - If the user does not want LLM relevancy coding, skip it.
+- If the user has not confirmed API use, scaffold but do not run LLM or embedding calls.
+- If an API key is missing, write the expected `.env` variable and stop with a precise handoff.
 - If the user does not provide a custom extraction goal, use a general extractive-span prompt.
 - If topic quality is clearly poor, propose a grid search instead of ad hoc parameter tweaking.
 - If the highest-coherence topic model is too fragmented for the corpus size, run a focused second-pass grid search in the middle parameter region.
@@ -136,6 +153,26 @@ At minimum, produce:
 - topic-model outputs at the requested level(s),
 - optional grid-search outputs,
 - external-tool export JSON when needed.
+
+## Handoff Pattern
+
+When stopping for the user, use this pattern:
+
+```text
+Created/updated:
+- <files>
+
+Before continuing:
+1. Review <config file>.
+2. Add <missing environment variables> locally.
+3. Run: <exact command>
+4. Send back: <specific output/stat file or error log>
+
+Next decision:
+- <what will be decided from that output>
+```
+
+Do not vaguely say "let me know when it is done" without naming the expected artifact.
 
 ## Standard Command Sequence
 

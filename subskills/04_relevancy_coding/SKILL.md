@@ -18,6 +18,18 @@ Use an LLM to decide whether a text is directly relevant to the target construct
 - Save full results and positives separately.
 - Keep errors in the dataset instead of silently dropping them.
 - Show progress with `tqdm`.
+- Require a confirmed construct definition before coding.
+- Require a confirmed model and API credentials before running.
+- Run a small sample first when the corpus is large or the construct is subtle.
+- Save the sample outputs for user inspection before full-corpus coding when labels may be ambiguous.
+
+## Do Not Proceed When
+
+- the prompt is blank or only restates the column name,
+- the inclusion and exclusion criteria are not clear,
+- the user has not approved API use,
+- `OPENAI_API_KEY` or the configured provider credential is unavailable,
+- the input path does not match the previous stage's positive or filtered output.
 
 ## Prompt Design
 

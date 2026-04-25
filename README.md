@@ -15,6 +15,7 @@ MERTopic helps an agent create a full analysis project around a text dataset:
 - inspect files and identify likely ID, title, body, and metadata fields;
 - clarify the research goal and unit of analysis;
 - scaffold a reproducible project with `.env`, `scripts/`, `data/`, and a project README;
+- stop at major decision points before API-costing stages unless you explicitly authorize a run;
 - optionally create a recall-oriented keyword filter;
 - optionally run LLM relevancy coding for a narrower analytic subset;
 - extract verbatim spans or bullets and verify them against the source text;
@@ -116,6 +117,8 @@ After the skill starts, the agent should inspect the dataset and ask only the mi
 - Do you need exports for a browsing or co-occurrence analysis tool?
 
 The agent should then build the code, tell you which scripts to run, inspect the outputs, and continue the process until the pipeline is actually finished. A half-built analysis folder is not a workflow; it is a future archaeological site.
+
+The agent should not ask you to paste API keys into chat. It should create or update a local `.env`, leave missing secrets blank, and tell you which variable to fill locally. It should also not substitute LDA, NMF, or another easier local method for BERTopic unless you explicitly request a different algorithm.
 
 ## Expected Workflow
 

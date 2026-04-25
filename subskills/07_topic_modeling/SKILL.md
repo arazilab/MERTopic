@@ -19,6 +19,10 @@ Produce interpretable topic outputs at bullet level, post level, or both.
 - Use custom stopwords when prefilter keywords would dominate topic terms.
 - Save document assignments, post-level summaries, topic summaries, and an intertopic distance map.
 - Save topic co-occurrence at the post level when a post can contain multiple bullet-level topics.
+- Use BERTopic unless the user explicitly requests a different algorithm.
+- Do not silently substitute LDA, NMF, k-means-only clustering, or a local toy model because BERTopic dependencies are unavailable.
+- If BERTopic or dependencies are missing, install them with approval or stop with exact installation instructions.
+- Inspect the embedding file before modeling and confirm it contains the expected text, IDs, and embedding vectors.
 
 ## Standard Outputs
 
@@ -51,7 +55,7 @@ Topic labeling should:
 
 If the user does not know whether bullet or post level is preferable:
 
-- run both,
+- propose running both,
 - compare interpretability and collapse,
 - recommend one.
 
