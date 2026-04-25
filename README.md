@@ -166,6 +166,8 @@ MERTopic treats BERTopic as an exploratory mixed-methods step, not a vending mac
 
 High coherence with dozens of tiny clusters may be fragmentation wearing a nice hat. Collapsed models with one giant topic are also not impressive just because they finished running.
 
+Default modeling config should set reproducibility seeds to `42` and BERTopic `nr_topics` to `"auto"` unless grid search or final model selection promotes a different value.
+
 ## Notes For Maintainers
 
 Keep `SKILL.md` concise and procedural. Put longer stage guidance in `subskills/` and reusable patterns in `templates/`. If you add scripts, test them. If you add new required files, update this README and `agents/openai.yaml`.

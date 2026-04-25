@@ -129,6 +129,8 @@ Use this order unless there is a clear reason to skip steps:
 - If the user has not confirmed API use, scaffold but do not run LLM or embedding calls.
 - If an API key is missing, write the expected `.env` variable and stop with a precise handoff.
 - If the user does not provide a custom extraction goal, use a general extractive-span prompt.
+- Use random seed `42` by default for reproducible stochastic stages.
+- Use BERTopic `nr_topics="auto"` by default unless grid search or model selection promotes a different value.
 - If topic quality is clearly poor, propose a grid search instead of ad hoc parameter tweaking.
 - If the highest-coherence topic model is too fragmented for the corpus size, run a focused second-pass grid search in the middle parameter region.
 - If the user needs downstream exploration, export JSON in tool-compatible annotation form.

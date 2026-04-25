@@ -58,14 +58,15 @@ This makes later topic assignments traceable.
 
 Keep these configurable:
 
-- random seed,
+- random seed, defaulting to `42`,
 - UMAP parameters,
 - HDBSCAN parameters,
+- BERTopic `nr_topics`, defaulting to `"auto"`,
 - stopwords,
 - topic-label prompt,
 - representative-example count.
 
-Set the same seed in NumPy and UMAP.
+Set the same seed in NumPy, UMAP, and any other stochastic component that exposes one.
 
 Use a fitted BERTopic model to save the intertopic map:
 

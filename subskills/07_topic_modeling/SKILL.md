@@ -15,11 +15,12 @@ Produce interpretable topic outputs at bullet level, post level, or both.
 
 - Reuse stored embeddings.
 - Keep UMAP and HDBSCAN parameters in config.
-- Fix random seeds.
+- Fix random seeds to `42` by default across NumPy, UMAP, and any other stochastic component that exposes a seed.
 - Use custom stopwords when prefilter keywords would dominate topic terms.
 - Save document assignments, post-level summaries, topic summaries, and an intertopic distance map.
 - Save topic co-occurrence at the post level when a post can contain multiple bullet-level topics.
 - Use BERTopic unless the user explicitly requests a different algorithm.
+- Set BERTopic `nr_topics="auto"` by default, exposed in config as `TOPIC_MODEL_BERTOPIC_NR_TOPICS=auto`.
 - Do not silently substitute LDA, NMF, k-means-only clustering, or a local toy model because BERTopic dependencies are unavailable.
 - If BERTopic or dependencies are missing, install them with approval or stop with exact installation instructions.
 - Inspect the embedding file before modeling and confirm it contains the expected text, IDs, and embedding vectors.
@@ -78,6 +79,7 @@ TOPIC_MODEL_UMAP_N_COMPONENTS=5
 TOPIC_MODEL_UMAP_MIN_DIST=0.1
 TOPIC_MODEL_HDBSCAN_MIN_CLUSTER_SIZE=12
 TOPIC_MODEL_HDBSCAN_MIN_SAMPLES=1
+TOPIC_MODEL_BERTOPIC_NR_TOPICS=auto
 TOPIC_MODEL_INTERTOPIC_DISTANCE_HTML_FILENAME=intertopic_distance_map.html
 TOPIC_MODEL_EXTRA_STOPWORDS=[]
 TOPIC_LABEL_MAX_REPRESENTATIVE_DOCS=10
