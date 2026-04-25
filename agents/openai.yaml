@@ -1,0 +1,7 @@
+interface:
+  display_name: "MERTopic"
+  short_description: "Reproducible BERTopic research pipelines"
+  default_prompt: "Use $mertopic to inspect my text dataset, ask the necessary setup questions, and build a reproducible topic modeling pipeline."
+
+policy:
+  allow_implicit_invocation: true
