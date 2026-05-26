@@ -13,6 +13,7 @@ Extract verbatim spans or bullets, then verify that each one appears in the sour
 
 ## Rules
 
+- Use `templates/approved_summarization_embedding_pipeline.py` when the user wants transcript summarization into topic-modeling bullets.
 - Normalize the text before matching.
 - Verify every extracted span.
 - Retry failed spans in the same conversation thread when possible.
@@ -42,6 +43,30 @@ If the user does specify a custom objective:
 
 - adapt the prompt to that objective,
 - keep the verification logic unchanged.
+
+## Approved Summarization Pattern
+
+For transcript-to-bullet summarization, follow `templates/approved_summarization_embedding_pipeline.py`.
+
+Preserve these parts unless the dataset requires a small adaptation:
+
+- read transcript `.txt` files from a configured transcript directory,
+- read metadata from a configured CSV, JSONL, or Parquet file,
+- map transcripts to metadata with a stable source stem,
+- use an OpenAI `responses.create` call with JSON schema output,
+- request a `bullets` array,
+- keep the prompt extractive and grounded in the transcript,
+- remove generic channel housekeeping when it is not part of the research goal,
+- save one summary record per source as JSONL,
+- explode each summary into one row per bullet,
+- create stable bullet IDs from source ID and bullet index,
+- save the bullet dataset as Parquet.
+
+Dependency install pattern:
+
+```bash
+pip install -qqq openai pandas pyarrow tqdm python-dotenv
+```
 
 ## Reuse
 

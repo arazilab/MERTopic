@@ -49,6 +49,8 @@ MERTopic/
 │   ├── 08_grid_search/
 │   └── 09_analysis_tool_exports/
 └── templates/
+    ├── approved_summarization_embedding_pipeline.py
+    ├── approved_topic_modeling_pipeline.py
     ├── common_code_patterns.md
     ├── prompt_design_patterns.md
     ├── python_stage_template.py
@@ -56,6 +58,14 @@ MERTopic/
 ```
 
 `SKILL.md` is the main entry point. The `subskills/` folders break the workflow into stages. The `templates/` folder gives the agent reusable implementation patterns without forcing every future project to reinvent the same little wheel, badly.
+
+`templates/approved_summarization_embedding_pipeline.py` is the default transcript summarization and bullet embedding script pattern.
+It follows the approved notebook approach. It reads plain transcript files and metadata, uses OpenAI JSON schema output to create extractive bullet summaries, explodes each source into bullet rows, batches embedding calls, stores model metadata, saves a Parquet file with embedding vectors, and saves a lightweight CSV preview.
+Agents should adapt the metadata and text column names through `.env`.
+
+`templates/approved_topic_modeling_pipeline.py` is the default BERTopic script pattern.
+It follows the approved notebook approach. It reads saved embeddings, validates input columns, fixes seeds, fits BERTopic from stored embeddings, labels topics with an OpenAI-backed label when available and a keyword fallback otherwise, and saves document topics, source topics, topic summaries, co-occurrence output, a co-occurrence network, an output index, and an intertopic map.
+Agents should adapt column names through `.env` rather than hard-coding one dataset.
 
 ## Installation
 

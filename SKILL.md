@@ -84,11 +84,20 @@ Prompts, model names, retry counts, file paths, and BERTopic parameters should l
 Use the code and prompt patterns in:
 
 - `templates/python_stage_template.py`
+- `templates/approved_summarization_embedding_pipeline.py`
+- `templates/approved_topic_modeling_pipeline.py`
 - `templates/shell_runner_template.sh`
 - `templates/common_code_patterns.md`
 - `templates/prompt_design_patterns.md`
 
 These are meant to be adapted, not copied verbatim without thought.
+
+For summarization and embedding creation, start from `templates/approved_summarization_embedding_pipeline.py`.
+It is based on an approved notebook implementation. It reads transcript files and metadata, creates extractive bullet summaries with a JSON schema, explodes each source into bullet rows, embeds the bullets in batches, and saves summaries, bullet Parquet, embedded bullet Parquet, and a CSV preview.
+
+For the BERTopic stage, start from `templates/approved_topic_modeling_pipeline.py`.
+It is based on an approved notebook implementation. It loads saved embeddings, validates columns, fixes seeds, fits BERTopic with UMAP and HDBSCAN, labels topics with a fallback when the OpenAI key is absent, saves document topics, source summaries, topic summaries, co-occurrence output, and an intertopic map.
+Keep the same structure unless the user's data shape clearly requires a small adaptation.
 
 ## Orchestration Rules
 

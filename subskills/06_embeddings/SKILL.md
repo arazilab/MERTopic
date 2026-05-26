@@ -16,6 +16,7 @@ Create:
 
 ## Requirements
 
+- Use `templates/approved_summarization_embedding_pipeline.py` when embedding bullet summaries created from transcripts.
 - Preserve source post IDs.
 - Preserve bullet IDs.
 - Store embedding model and dimensions.
@@ -36,6 +37,29 @@ Before embedding, report:
 - output files.
 
 Proceed only after confirmation when the user requested stage-by-stage control.
+
+## Approved Embedding Pattern
+
+For bullet embedding creation, follow `templates/approved_summarization_embedding_pipeline.py`.
+
+Preserve these parts unless the dataset requires a small adaptation:
+
+- validate that the bullet text column exists,
+- fill missing text with an empty string before embedding,
+- batch inputs with a configured batch size,
+- use `tqdm` over batches,
+- call `client.embeddings.create`,
+- set model, dimensions, batch size, and encoding format from config,
+- check that the embedding count equals the row count,
+- save the embedding vectors in Parquet,
+- save `embedding_model` and `embedding_dimensions`,
+- save a CSV preview without the embedding vector column.
+
+Dependency install pattern:
+
+```bash
+pip install -qqq openai pandas pyarrow tqdm python-dotenv
+```
 
 ## Reuse
 
